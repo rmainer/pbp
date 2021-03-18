@@ -1,0 +1,10 @@
+#!/usr/bin/python
+
+with open('/sys/class/power_supply/cw2015-battery/time_to_empty_now') as fd:
+	tte = int(fd.readline())
+	tte = tte / 60.0
+	print('Time to empty: {:.2f}h'.format(tte))
+
+with open('/sys/class/power_supply/cw2015-battery/capacity') as fd:
+	c = int(fd.readline())
+	print('Capacity: {}%'.format(c))

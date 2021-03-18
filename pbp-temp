@@ -1,0 +1,9 @@
+#!/usr/bin/python
+
+with open('/sys/class/thermal/thermal_zone0/temp', 'r') as cpu_fd:
+	cpu_temp = int(cpu_fd.readline()) / 1000.0
+	print('CPU temperatur: {:.2f}°C'.format(cpu_temp))
+
+with open('/sys/class/thermal/thermal_zone1/temp', 'r') as gpu_fd:
+	gpu_temp = int(gpu_fd.readline()) / 1000.0
+	print('GPU temperatur: {:.2f}°C'.format(gpu_temp))
