@@ -1,0 +1,26 @@
+#!/bin/bash
+
+GET=/sys/class/backlight/edp-backlight/actual_brightness
+SET=/sys/class/backlight/edp-backlight/brightness
+
+if [ `id -u` != 0 ]; then
+	echo "Become root!"
+	exit
+fi
+
+MAX=$(cat /sys/class/backlight/edp-backlight/max_brightness)
+
+if [ ! -e "${SET}" ]; then
+	echo "Could not find /sys entry!"
+	exit
+fi
+
+if [ -z "$1" ]; then
+	cat $GET
+else
+	if [ $1 -le 0 -o $1 -gt $MAX ]; then
+		echo "Value out of range [0-${MAX}] !"
+		exit
+	fi
+	echo "$1" > $SET
+fi
